@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
         username: '',
         id: '',
         pw: '',
+        email: '',
         isSigned: 'sign in',
     }
 });
