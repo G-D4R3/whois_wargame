@@ -15,6 +15,7 @@
     "vue-chartjs": "3.5.0",
     "vue-js-modal": "2.0.0-rc.6",
     "vue-router": "3.3.4",
+    "vuelidate": "0.7.5",
     "vuetify": "^2.2.11",
     "vuex": "3.5.1"
   },
@@ -25,8 +26,11 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "sass": "1.26.10",
+    "sass-loader": "10.0.1",
     "vue-cli-plugin-vuetify": "2.0.6",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "4.44.1"
   },
   "eslintConfig": {
     "root": true,

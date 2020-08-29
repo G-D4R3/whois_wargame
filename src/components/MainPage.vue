@@ -4,6 +4,9 @@
       <router-link :to="{ name: 'mypage' }">
         <p :style="{'color' : 'white'}">{{ $store.state.username }}</p>
       </router-link>
+      <router-link :to="{ name: 'join' }">
+        <v-btn text v-bind:style="signin" align-right>join</v-btn>
+      </router-link>
       <v-btn text @click="openModal" v-bind:style="signin" align-right>{{ $store.state.isSigned }}</v-btn>
       <Login @close="closeModal" v-if="modal"></Login>
     </v-layout>
