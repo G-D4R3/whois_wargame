@@ -87,7 +87,15 @@
         },
         methods: {
             submitForm(){
-
+                this.$http.post('/api/join', {
+                    id : this.form.id,
+                    password: this.form.pw,
+                    email: this.form.email,
+                    name: this.form.name
+                }).then(function (response) {
+                    console.log(response);
+                });
+                this.$router.push({name: 'LoginPage'});
             }
         }
     }

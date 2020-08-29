@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from './MainPage';
-import Challenges from './Challenges';
-import Login from './Login';
-import Scoreboard from "./Scoreboard";
-import MyPage from './MyPage';
-import Join from './Join';
+import MainPage from '@/components/MainPage';
+import Challenges from '@/components/Challenges'
+import Scoreboard from "@/components/Scoreboard"
+import MyPage from '@/components/MyPage'
+import Join from '@/components/Join'
 
 Vue.use(Router)
 
-export const router = new Router({
+export default new Router({
+  mode: history,
+  base: process.env.BASE_URL,
   routes:[
     {
       path: '',
@@ -20,11 +21,6 @@ export const router = new Router({
       path: '/challenges',
       name: 'challenges',
       component: Challenges,
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: Login,
     },
     {
       path: '/scoreboard',
