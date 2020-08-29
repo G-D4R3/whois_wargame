@@ -98,6 +98,7 @@
                     this.$router.push('/challenges')
                 }).catch((err)=>{
                     console.log(err);
+                    alert(err.data.message);
                     this.$router.push('/challenges')
                 });
             }
