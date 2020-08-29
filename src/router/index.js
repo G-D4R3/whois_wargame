@@ -9,11 +9,11 @@ import Join from '@/components/Join'
 Vue.use(Router)
 
 export default new Router({
-  mode: history,
+  mode: "history",
   base: process.env.BASE_URL,
   routes:[
     {
-      path: '',
+      path: '/',
       name: 'main',
       component: MainPage,
     },
@@ -33,9 +33,9 @@ export default new Router({
       component: MyPage,
     },
     {
-      path: '/join ',
+      path: '/join',
       name: 'join',
       component: Join,
-    }
+    },
   ]
 });

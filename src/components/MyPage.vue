@@ -2,15 +2,9 @@
     <v-app v-bind:style="{'width':'100%', 'height':'100%', 'background-image': 'url(' + require('@/assets/background.png') + ')'}">
         <v-container fluid>
             <v-layout align-start justify-start>
-                <router-link :to="{ name: 'main' }">
-                    <v-btn text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Home</v-btn>
-                </router-link>
-                <router-link :to="{ name: 'challenges' }">
-                    <v-btn text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '120px', 'height': '50px',}">Challenges</v-btn>
-                </router-link>
-                <router-link :to="{ name: 'scoreboard' }">
-                    <v-btn text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '120px', 'height': '50px',}">Scoreboard</v-btn>
-                </router-link>
+                <v-btn @click="$router.push('/')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Home</v-btn>
+                <v-btn @click="$router.push('/challenges')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '120px', 'height': '50px',}">Challenges</v-btn>
+                 <v-btn @click="$router.push('/scoreboard')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '120px', 'height': '50px',}">Scoreboard</v-btn>
             </v-layout>
             <v-layout justify-center>
                 <h1 :style="{'color': 'white', 'marginTop': '30px'}">My Page</h1>

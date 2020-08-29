@@ -1,10 +1,10 @@
 module.exports = {
     "devServer": {
-        "port": 3000,
         "proxy": {
             "/api/*": {
-                "target": "http://localhost:8080"
+                "target": "http://192.168.200.138:3000/"
             }
         }
     },
+
 }

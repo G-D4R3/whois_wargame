@@ -1,12 +1,8 @@
 <template>
   <v-app v-bind:style="{'width':'100%', 'height':'100%', 'background-image': 'url(' + require('@/assets/background.png') + ')'}">
     <v-layout align-end justify-end>
-      <router-link :to="{ name: 'mypage' }">
-        <p :style="{'color' : 'white'}">{{ $store.state.username }}</p>
-      </router-link>
-      <router-link :to="{ name: 'join' }">
-        <v-btn text v-bind:style="signin" align-right>join</v-btn>
-      </router-link>
+      <p @click="$router.push('/mypage')" :style="{'color' : 'white'}">{{ $store.state.username }}</p>
+      <v-btn text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
       <v-btn text @click="openModal" v-bind:style="signin" align-right>{{ $store.state.isSigned }}</v-btn>
       <Login @close="closeModal" v-if="modal"></Login>
     </v-layout>
@@ -16,12 +12,8 @@
           <img src="@/assets/title.png">
         </v-flex>
         <v-flex>
-          <router-link :to="{ name: 'challenges' }">
-            <h1 v-bind:style="{ color : hover1, 'width' : '100px'}" @mouseover="hover1 = '#2d324a'" @mouseout="hover1 = 'white'">Challenges</h1>
-          </router-link>
-          <router-link :to="{ name: 'scoreboard' }">
-            <h1 v-bind:style="{ color : hover2, 'width' : '100px'}" @mouseover="hover2 = '#2d324a'" @mouseout="hover2 = 'white'">Scoreboard</h1>
-          </router-link>
+          <h1 @click="$router.push('/challenges')" v-bind:style="{ color : hover1, 'width' : '100px'}" @mouseover="hover1 = '#2d324a'" @mouseout="hover1 = 'white'">Challenges</h1>
+          <h1 @click="$router.push('/scoreboard')" v-bind:style="{ color : hover2, 'width' : '100px'}" @mouseover="hover2 = '#2d324a'" @mouseout="hover2 = 'white'">Scoreboard</h1>
         </v-flex>
       </v-layout>
     </v-container>

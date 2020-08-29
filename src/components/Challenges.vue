@@ -2,12 +2,8 @@
   <v-app v-bind:style="{'width':'100%', 'height':'100%', 'background-image': 'url(' + require('@/assets/background.png') + ')'}">
     <v-container fluid>
       <v-layout align-start justify-end>
-       <router-link :to="{ name: 'main' }">
-         <v-btn text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Home</v-btn>
-       </router-link>
-        <router-link :to="{ name: 'scoreboard' }">
-          <v-btn text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Scoreboard</v-btn>
-        </router-link>
+        <v-btn @click="$router.push('/')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Home</v-btn>
+        <v-btn @click="$router.push('/scoreboard')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Scoreboard</v-btn>
        <v-spacer></v-spacer>
        <v-btn text @click="openModal(0)" v-bind:style="signin" align-right>sign in</v-btn>
        <Login @close="closeModal" v-if="modal"></Login>

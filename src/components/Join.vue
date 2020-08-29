@@ -35,7 +35,7 @@
                         <label for="email">email</label>
                         <input type="email" class="form-control" id="email" v-model="form.email">
                     </div>
-                    <v-btn type="submit" class="submit-button">Create account</v-btn>
+                    <v-btn @click="submitForm()" type="submit" class="submit-button">Create account</v-btn>
                 </form>
             </v-layout>
         </v-container>
@@ -43,7 +43,8 @@
 </template>
 
 <script>
-    import { required, email, minLength, maxLength, alphaNum} from 'vuelidate/lib/validators'
+    import axios from 'axios'
+    import { required, email, minLength, maxLength, alphaNum } from 'vuelidate/lib/validators'
     export default{
         data:() => ({
             form: {
@@ -87,15 +88,18 @@
         },
         methods: {
             submitForm(){
-                this.$http.post('/api/join', {
+                axios.post('/api/join', {
                     id : this.form.id,
                     password: this.form.pw,
                     email: this.form.email,
                     name: this.form.name
-                }).then(function (response) {
-                    console.log(response);
+                }).then((res) => {
+                    console.log(res)
+                    this.$router.push('/challenges')
+                }).catch((err)=>{
+                    console.log(err);
+                    this.$router.push('/challenges')
                 });
-                this.$router.push({name: 'LoginPage'});
             }
         }
     }
