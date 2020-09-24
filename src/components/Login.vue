@@ -2,20 +2,22 @@
   <div v-on:click.self="$emit('close')">
     <slot name="modal-text">
       <v-img src="@/assets/logo2.png" contain height="120px" :style="{'marginTop': '30px'}"></v-img>
-      <form :style='formbox'>
-        <input v-model="form.id" class='input' placeholder="ID">
-      </form>
-      <form :style='formbox'>
-        <input v-model="form.pw" type='password' class='input' placeholder="Password">
-      </form>
-      <form  :style='formbox2'>
-        <v-btn depressed @click="login" :style='btn'>로그인</v-btn>
-      </form>
-      <form :style='formbox3'>
-        <router-link :to="{ name: 'join' }">
-          <p @click="$emit('close')" class="find">회원가입</p>
-        </router-link>
-        <p class="find" :style="{'marginTop': '5px'}">아이디/비밀번호 찾기</p>
+      <form @submit.prevent>
+        <div :style="formbox">
+          <input v-model="form.id" class='input' placeholder="ID">
+        </div>
+        <div :style='formbox'>
+          <input v-model="form.pw" type='password' class='input' placeholder="Password">
+        </div>
+        <div :style='formbox2'>
+          <v-btn depressed @click.prevent="login()" :style='btn'>로그인</v-btn>
+        </div>
+        <form :style='formbox3'>
+          <router-link :to="{ name: 'join' }">
+            <p @click="$emit('close')" class="find">회원가입</p>
+          </router-link>
+          <p class="find" :style="{'marginTop': '5px'}">아이디/비밀번호 찾기</p>
+        </form>
       </form>
     </slot>
   </div>
@@ -23,6 +25,7 @@
 
 
 <script>
+  import axios from 'axios'
 
   export default {
     data: () =>({
@@ -76,11 +79,15 @@
     methods: {
       login: function(event){
         if(event) event.preventDefault();
-        this.$store.state.id = this.form.id;
-        this.$store.state.pw = this.form.pw;
-        this.$store.state.username = 'dare';
-        this.$store.state.isSigned = 'sign out';
-        this.$emit('close');
+        axios.post('/api/login', {
+          id : this.form.id,
+          password: this.form.pw,
+        }).then((res) => {
+          alert(res.data.message)
+          this.$emit('close');
+        }).catch((err)=>{
+          alert(err.response.data.message)
+        });
       }
     },
   }

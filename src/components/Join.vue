@@ -18,7 +18,7 @@
         </v-container>
         <v-container>
             <v-layout align-center justify-center>
-                <form>
+                <form @submit.prevent>
                     <div class="form-group" row>
                         <label for="name">name</label>
                         <input type="text" class="form-control" id="name" v-model="form.name">
@@ -26,16 +26,25 @@
                     <div class="form-group" row>
                         <label for="id">Id</label>
                         <input type="text" class="form-control" id="id" v-model="form.id">
+                        <div v-if="!$v.form.id.required">ID is required</div>
+                        <div class="error" v-if="!$v.form.id.alphaNum">ID can only contain letters and numbers</div>
+                        <div class="error" v-if="!$v.form.id.minLength">ID must have at least {{$v.form.id.$params.minLength.min}} letters.</div>
+                        <div class="error" v-if="!$v.form.id.maxLength">ID is too long. It can contains maximium {{$v.form.id.$params.maxLength.max}} letters.</div>
                     </div>
                     <div class="form-group">
-                        <label for="pw">password</label>
-                        <input type="password" class="form-control" id="pw" v-model="form.pw">
+                        <label for="password">password</label>
+                        <input type="password" class="form-control" id="password" v-model="form.password">
+                        <div class="error" v-if="!$v.form.password.required">Password is required</div>
+
                     </div>
                     <div class="form-group" row>
-                        <label for="email">email</label>
-                        <input type="email" class="form-control" id="email" v-model="form.email">
+                        <label for="emailAddress">email</label>
+                        <input type="email" class="form-control" id="emailAddress" v-model="form.emailAddress">
+                        <div class="error" v-if="!$v.form.emailAddress.required">Email address is required</div>
+                        <div class="error" v-if="!$v.form.emailAddress.email">This is not a valid email address</div>
+                        <div class="error" v-if="!$v.form.emailAddress.maxLength">Email address is too long. It can contains maximium {{$v.form.emailAddress.$params.maxLength.max}} letters.</div>
                     </div>
-                    <v-btn @click="submitForm()" type="submit" class="submit-button">Create account</v-btn>
+                    <v-btn @click.prevent="submitForm()" type="submit" class="submit-button">Create account</v-btn>
                 </form>
             </v-layout>
         </v-container>
@@ -49,9 +58,9 @@
         data:() => ({
             form: {
                 id: '',
-                pw: '',
+                password: '',
                 name: '',
-                email: '',
+                emailAddress: '',
             },
             errorMessage:'',
             signin :{
@@ -90,16 +99,13 @@
             submitForm(){
                 axios.post('/api/join', {
                     id : this.form.id,
-                    password: this.form.pw,
-                    email: this.form.email,
+                    password: this.form.password,
+                    email: this.form.emailAddress,
                     name: this.form.name
-                }).then((res) => {
-                    console.log(res)
-                    this.$router.push('/challenges')
+                }).then(() => {
+                    this.$router.push('/')
                 }).catch((err)=>{
-                    console.log(err);
-                    alert(err.data.message);
-                    this.$router.push('/challenges')
+                    alert(err.response.data.message)
                 });
             }
         }
@@ -137,4 +143,6 @@
         max-width: 320px;
         width: 300px;
     }
+
+
 </style>

@@ -3,7 +3,7 @@
     <v-layout align-end justify-end>
       <p @click="$router.push('/mypage')" :style="{'color' : 'white'}">{{ $store.state.username }}</p>
       <v-btn text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
-      <v-btn text @click="openModal" v-bind:style="signin" align-right>{{ $store.state.isSigned }}</v-btn>
+      <v-btn text @click="openModal" v-bind:style="signin" align-right>sign in</v-btn>
       <Login @close="closeModal" v-if="modal"></Login>
     </v-layout>
     <v-container fluid fill-height>
@@ -41,22 +41,14 @@ export default {
   }),
   methods : {
     openModal() {
-      if(this.$store.state.isSigned == 'sign in'){
-        this.$modal.show(Login,{
-          hot_table : 'data',
-          modal : this.$modal },{
-          name: 'dynamic-modal',
-          width : '400px',
-          height : '400px',
-          draggable: false,
-        });
-      }
-      else if(this.$store.state.isSigned =='sign out'){
-        this.$store.isSigned = 'sign in';
-        this.$store.id = '';
-        this.$store.pw = '';
-        this.$store.username = '';
-      }
+      this.$modal.show(Login,{
+        hot_table : 'data',
+        modal : this.$modal },{
+        name: 'dynamic-modal',
+        width : '400px',
+        height : '430px',
+        draggable: false,
+      });
     },
     closeModal() {
       this.modal = false;

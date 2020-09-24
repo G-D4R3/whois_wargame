@@ -6,9 +6,17 @@ Vue.use(Vuex);
 export const store = new Vuex.Store({
     state: {
         username: '',
-        id: '',
-        pw: '',
-        email: '',
-        isSigned: 'sign in',
+        isSigned: 'false',
+        score: [
+            {
+                name: "dare",
+                score: 200,
+            },
+            {
+                name: "ever",
+                score: 400,
+            }
+        ]
+
     }
 });

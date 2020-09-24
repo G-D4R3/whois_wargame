@@ -2,11 +2,12 @@
   <v-app v-bind:style="{'width':'100%', 'height':'100%', 'background-image': 'url(' + require('@/assets/background.png') + ')'}">
     <v-container fluid>
       <v-layout align-start justify-end>
-        <v-btn @click="$router.push('/')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Home</v-btn>
-        <v-btn @click="$router.push('/scoreboard')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">Scoreboard</v-btn>
-       <v-spacer></v-spacer>
-       <v-btn text @click="openModal(0)" v-bind:style="signin" align-right>sign in</v-btn>
-       <Login @close="closeModal" v-if="modal"></Login>
+        <img @click="$router.push('/')" src="@/assets/title2.png" :style="{'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">
+        <v-btn @click="$router.push('/scoreboard')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '30px','width': '100px', 'height': '50px',}">Scoreboard</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
+        <v-btn text @click="openModal(0)" v-bind:style="signin" align-right>sign in</v-btn>
+        <Login @close="closeModal" v-if="modal"></Login>
       </v-layout>
       <v-layout align-center justify-center>
         <h1 :style="title">Challenges</h1>
@@ -55,11 +56,13 @@
 <script>
 import Login from './Login';
 import Problem from './Problem';
+import axios from 'axios';
 
 export default {
   components: { Login, Problem },
 
   data: () => ({
+    problems: [],
     modal: false,
     signin :{
       width: '100px',
@@ -93,7 +96,6 @@ export default {
           modal : this.$modal },{
           name: 'dynamic-modal',
           width : '400px',
-          height : '400px',
           draggable: false,
         });
       }
@@ -103,7 +105,7 @@ export default {
           modal : this.$modal },{
           name: 'dynamic-modal',
           width : '400px',
-          height : '400px',
+          height : '430px',
           draggable: false,
         });
       }
@@ -111,6 +113,9 @@ export default {
     closeModal() {
       this.modal = false;
     },
-  }
+  },
+  created() {
+    axios.get("/api/challenges").then(response => { this.problems = response.data; });
+  },
 };
 </script>

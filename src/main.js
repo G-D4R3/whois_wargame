@@ -5,9 +5,14 @@ import '@babel/polyfill'
 import { store } from "./store";
 import VModal from 'vue-js-modal'
 import router from './router/index'
+import Vuelidate from 'vuelidate'
+import VueGoodTablePlugin from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css'
 
 Vue.config.productionTip = false
 Vue.use(VModal, { dynamic: true })
+Vue.use(Vuelidate)
+Vue.use(VueGoodTablePlugin);
 
 
 new Vue({
