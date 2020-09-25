@@ -83,7 +83,8 @@
           id : this.form.id,
           password: this.form.pw,
         }).then((res) => {
-          alert(res.data.message)
+          console.log(res.data.message);
+          alert(res.data.message);
           this.$emit('close');
         }).catch((err)=>{
           alert(err.response.data.message)
