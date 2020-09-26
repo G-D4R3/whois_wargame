@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import Login from './Login'
+    import Login from '../modals/Login'
     import axios from 'axios'
 
     export default {

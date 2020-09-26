@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Login from './Login';
+import Login from '../modals/Login';
 
 export default {
   components: { Login },

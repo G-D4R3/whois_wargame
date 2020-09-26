@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import Login from './Login';
-import Problem from './Problem';
+import Login from '../modals/Login';
+import Problem from '../modals/Problem';
 import axios from 'axios';
 
 export default {

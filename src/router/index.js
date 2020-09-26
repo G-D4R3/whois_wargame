@@ -1,10 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '@/components/MainPage';
-import Challenges from '@/components/Challenges'
-import Scoreboard from "@/components/Scoreboard"
-import MyPage from '@/components/MyPage'
-import Join from '@/components/Join'
+import MainPage from '@/views/MainPage';
+import Challenges from '@/views/Challenges'
+import Scoreboard from "@/views/Scoreboard"
+import Join from '@/views/Join'
 
 Vue.use(Router)
 
@@ -26,11 +25,6 @@ export default new Router({
       path: '/scoreboard',
       name: 'scoreboard',
       component: Scoreboard,
-    },
-    {
-      path: '/mypage',
-      name: 'mypage',
-      component: MyPage,
     },
     {
       path: '/join',
