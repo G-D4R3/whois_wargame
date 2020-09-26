@@ -10,7 +10,19 @@
                 </router-link>
                 <v-spacer></v-spacer>
                 <v-btn v-if="$store.state.issigned=='sign in'" text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
-                <v-btn text @click="openModal" v-bind:style="signin" align-right>{{$store.state.issigned}}</v-btn>
+                <v-btn v-if="$store.state.issigned=='sign in'" text @click.prevent="openModal" v-bind:style="signin" align-right>sign in</v-btn>
+                <v-menu v-if="$store.state.issigned!='sign in'" offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-btn text :style="signin"
+                               v-bind="attrs"
+                               v-on="on">{{$store.state.issigned}}</v-btn>
+                    </template>
+                    <v-list>
+                        <v-list-item class="a" v-for="item in $store.state.userMenuItems" :key="item" @click="menuOption(item.action)">
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
                 <Login @close="closeModal" v-if="modal"></Login>
             </v-layout>
             <v-layout align-center justify-center>
@@ -83,9 +95,32 @@
             closeModal() {
                 this.modal = false;
             },
+            menuOption(opt){
+                if(opt==="logout"){
+                    axios.get("/api/logout");
+                    this.$store.state.issigned="sign in";
+                    location.reload();
+                }
+                if(opt==="mypage"){
+                    this.$router.push({name: 'join'});
+                }
+            },
         },
         created() {
             axios.get("/api/score").then(response => { this.score = response.data; });
+            axios.get("/api/login")
+                .then((res)=>{
+                    const user = res.data.user;
+                    if(user) {
+                        this.$store.state.issigned = user.name;
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err);
+                });
+        },
+        computed : {
+            user() {return this.$state.getters.user;}
         },
 
     }

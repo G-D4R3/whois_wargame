@@ -14,7 +14,6 @@ Vue.use(VModal, { dynamic: true })
 Vue.use(Vuelidate)
 Vue.use(VueGoodTablePlugin);
 
-
 new Vue({
   vuetify,
   render: h => h(App),

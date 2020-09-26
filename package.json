@@ -18,9 +18,12 @@
     "popper.js": "1.16.1",
     "vue": "^2.6.11",
     "vue-chartjs": "3.5.0",
+    "vue-clickaway": "2.2.2",
+    "vue-dropdowns": "1.1.1",
     "vue-good-table": "2.21.0",
     "vue-js-modal": "2.0.0-rc.6",
     "vue-router": "3.3.4",
+    "vue-simple-context-menu": "3.3.0",
     "vuelidate": "0.7.5",
     "vuetify": "^2.2.11",
     "vuex": "3.5.1"

@@ -7,6 +7,16 @@ export const store = new Vuex.Store({
     state: {
         user: null,
         issigned : "sign in",
+        userMenuItems: [
+            {
+                title: "마이페이지",
+                action: "mypage",
+            },
+            {
+                title: "로그아웃",
+                action: "logout",
+            }
+        ],
     },
     getters: {
         user: (state) => {
