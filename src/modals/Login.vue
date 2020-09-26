@@ -2,7 +2,7 @@
   <div v-on:click.self="$emit('close')">
     <slot name="modal-text">
       <v-img src="@/assets/logo2.png" contain height="120px" :style="{'marginTop': '30px'}"></v-img>
-      <form @submit.prevent>
+      <form @submit.prevent="login()">
         <div :style="formbox">
           <input v-model="form.id" class='input' placeholder="ID">
         </div>
@@ -79,15 +79,21 @@
     methods: {
       login: function(event){
         if(event) event.preventDefault();
-        axios.post('/api/login', {
-          id : this.form.id,
-          password: this.form.pw,
-        }).then((res) => {
-          console.log(res.data.message);
-          alert(res.data.message);
-          this.$emit('close');
+        const id  = this.form.id;
+        const password =  this.form.pw;
+        axios.post('/api/login', {id, password}, {"Content-Type": "application-json"}).then((res) => {
+          if(res.data.user){
+            this.$store.commit("setUser", res.data.user);
+            //this.$router.push({name: 'main'});
+            //this.$forceUpdate();
+            location.reload();
+            this.$emit('close');
+          }
+          else if(res.data.message){
+            alert(res.data.message);
+          }
         }).catch((err)=>{
-          alert(err.response.data.message)
+          console.log(err);
         });
       }
     },

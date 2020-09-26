@@ -2,8 +2,8 @@
   <v-app v-bind:style="{'width':'100%', 'height':'100%', 'background-image': 'url(' + require('@/assets/background.png') + ')'}">
     <v-layout align-end justify-end>
       <p @click="$router.push('/mypage')" :style="{'color' : 'white'}">{{ $store.state.username }}</p>
-      <v-btn text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
-      <v-btn text @click="openModal" v-bind:style="signin" align-right>sign in</v-btn>
+      <v-btn v-if="$store.state.issigned=='sign in'" text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
+      <v-btn text @click="sign" v-bind:style="signin" align-right>{{$store.state.issigned}}</v-btn>
       <Login @close="closeModal" v-if="modal"></Login>
     </v-layout>
     <v-container fluid fill-height>
@@ -22,8 +22,24 @@
 
 <script>
 import Login from '../modals/Login';
+import axios from 'axios';
 
 export default {
+  created() {
+    axios.get("/api/login")
+            .then((res)=>{
+              const user = res.data.user;
+              if(user) {
+                this.$store.state.issigned = user.name;
+              }
+            })
+            .catch((err)=>{
+              console.log(err);
+            });
+  },
+  computed : {
+    user() {return this.$state.getters.user;}
+  },
   components: { Login },
   data: () => ({
     modal: false,
@@ -49,6 +65,16 @@ export default {
         height : '430px',
         draggable: false,
       });
+    },
+    sign() {
+      if(this.$store.state.issigned==="sign in"){
+        this.openModal();
+      }
+      else{
+        axios.get("/api/logout");
+        this.$store.state.issigned="sign in";
+        location.reload();
+      }
     },
     closeModal() {
       this.modal = false;

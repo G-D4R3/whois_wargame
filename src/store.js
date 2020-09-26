@@ -5,18 +5,17 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
-        username: '',
-        isSigned: 'false',
-        score: [
-            {
-                name: "dare",
-                score: 200,
-            },
-            {
-                name: "ever",
-                score: 400,
-            }
-        ]
-
-    }
+        user: null,
+        issigned : "sign in",
+    },
+    getters: {
+        user: (state) => {
+            return state.user;
+        }
+    },
+    mutations: {
+        setUser(state, user) {
+            state.user = user;
+        },
+    },
 });

@@ -5,8 +5,8 @@
         <img @click="$router.push('/')" src="@/assets/title2.png" :style="{'marginTop': '10px', 'marginLeft': '10px','width': '100px', 'height': '50px',}">
         <v-btn @click="$router.push('/scoreboard')" text :style="{'color':'white', 'marginTop': '10px', 'marginLeft': '30px','width': '100px', 'height': '50px',}">Scoreboard</v-btn>
         <v-spacer></v-spacer>
-        <v-btn text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
-        <v-btn text @click="openModal(0)" v-bind:style="signin" align-right>sign in</v-btn>
+        <v-btn v-if="$store.state.issigned=='sign in'" text @click="$router.push({name: 'join'})" v-bind:style="signin" align-right>join</v-btn>
+        <v-btn text @click="openModal(0)" v-bind:style="signin" align-right>{{$store.state.issigned}}</v-btn>
         <Login @close="closeModal" v-if="modal"></Login>
       </v-layout>
       <v-layout align-center justify-center>
