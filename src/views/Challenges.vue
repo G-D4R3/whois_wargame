@@ -26,56 +26,41 @@
       </v-layout>
     </v-container>
     <v-container fill-height>
-      <v-layout justify-center> <!-- 나중에 v-for로 바꿔서 랜더링 -->
-        <v-card :style='card' @click='openModal(1)'>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">Tuts</h3>
-              <div>200pts</div>
-            </div>
-          </v-card-title>
-        </v-card>
-        <Problem v-if='modal'></Problem>
-        <v-card :style='card'>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">problem2</h3>
-              <div>100pts</div>
-            </div>
-          </v-card-title>
-        </v-card>
-        <v-card :style='card'>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">guessing </h3>
-              <div>150pts</div>
-            </div>
-          </v-card-title>
-        </v-card>
-        <v-card :style='card'>
-          <v-card-title primary-title>
-            <div>
-              <h3 class="headline mb-0">crpyto2</h3>
-              <div>150pts</div>
-            </div>
-          </v-card-title>
-        </v-card>
+      <v-layout justify-center>
+        <div v-for="problem in problems" :key="problem.id">
+          <v-card :style="solved" @click="openProblem(problem)">
+            <v-card-title primary-title>
+              <div>
+                <h3 class="headline mb-0">{{problem.name}}</h3>
+                <div>{{problem.score}}</div>
+              </div>
+            </v-card-title>
+          </v-card>
+        </div>
       </v-layout>
     </v-container>
+    <Problem v-if="problemModal" @close="problemModal = false" :pd="this.pd"></Problem>
   </v-app>
 </template>
 
 <script>
 import Login from '../modals/Login';
-import Problem from '../modals/Problem';
 import axios from 'axios';
+import Problem from '@/modals/Problem'
 
 export default {
   components: { Login, Problem },
 
   data: () => ({
     problems: [],
+    pd: {
+      name: 'hi',
+      description: null,
+      link: null,
+    },
     modal: false,
+    problemModal: false,
+
     signin :{
       width: '100px',
       height: '50px',
@@ -90,7 +75,16 @@ export default {
       marginTop: '100px',
       marginBottom: '100px',
     },
-    card: {
+    unsolved: {
+      width: '230px',
+      height: '150px',
+      marginLeft: '20px',
+      marginRight: '20px',
+      marginTop: '30px',
+      backgroundColor: '#9ea5b6',
+      color: 'white',
+    },
+    solved: {
       width: '230px',
       height: '150px',
       marginLeft: '20px',
@@ -98,51 +92,51 @@ export default {
       marginTop: '30px',
       backgroundColor: '#676f82',
       color: 'white',
+    },
+    cardtitle: {
+      color: 'white',
+      fontSize: '20px',
+      fontWeight: 'bold',
     }
   }),
   methods : {
-    openModal(mo) {
-      if(mo==1){
-        this.$modal.show(Problem,{
-          hot_table : 'data',
-          modal : this.$modal },{
-          name: 'dynamic-modal',
-          width : '400px',
-          draggable: false,
-        });
-      }
-      if(mo==0){
-        this.$modal.show(Login,{
-          hot_table : 'data',
-          modal : this.$modal },{
-          name: 'dynamic-modal',
-          width : '400px',
-          height : '430px',
-          draggable: false,
-        });
-      }
+    openModal() {
+      this.$modal.show(Login, {
+        hot_table: 'data',
+        modal: this.$modal
+      }, {
+        name: 'dynamic-modal',
+        width: '400px',
+        height: '430px',
+        draggable: false,
+      });
+    },
+    openProblem(item) {
+      this.problemModal = true;
+      this.pd = item;
     },
     closeModal() {
       this.modal = false;
     },
-    menuOption(opt){
-      if(opt==="logout"){
+    menuOption(opt) {
+      if (opt === "logout") {
         axios.get("/api/logout");
-        this.$store.state.issigned="sign in";
+        this.$store.state.issigned = "sign in";
         location.reload();
       }
-      if(opt==="mypage"){
+      if (opt === "mypage") {
         this.$router.push({name: 'join'});
       }
     },
   },
-  created() {
+    created() {
     axios.get("/api/challenges").then(response => { this.problems = response.data; });
     axios.get("/api/login")
             .then((res)=>{
               const user = res.data.user;
               if(user) {
                 this.$store.state.issigned = user.name;
+
               }
             })
             .catch((err)=>{

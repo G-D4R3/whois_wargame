@@ -16,6 +16,8 @@
     "es6-promise": "4.2.8",
     "jquery": "3.5.1",
     "popper.js": "1.16.1",
+    "stylus": "0.54.8",
+    "stylus-loader": "3.0.2",
     "vue": "^2.6.11",
     "vue-chartjs": "3.5.0",
     "vue-clickaway": "2.2.2",

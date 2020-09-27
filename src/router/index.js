@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import MainPage from '@/views/MainPage';
+import MainPage from '@/views/MainPage'
 import Challenges from '@/views/Challenges'
 import Scoreboard from "@/views/Scoreboard"
 import Join from '@/views/Join'
